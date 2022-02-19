@@ -35,7 +35,7 @@
                             <div class="e-userpro-img">
                                 @if (Model.UserPanel.Avatar != null)
                                 {
-                                    <img src="@(PathExtension.UserAvatarOrigin + Model.UserPanel.Avatar)" alt="image">
+                                    <img id="avatar" src="@(PathExtension.UserAvatarOrigin + Model.UserPanel.Avatar)" alt="image">
                                 }
                                 else
                                 {
@@ -66,25 +66,25 @@
                                 <div class="col-md-6 ">
                                     <div class="e-form-field mb-26">
                                         <label>نام کوچک </label>
-                                        <input class="e-field-inner  require" readonly asp-for="UserPanel.FirstName" type="text">
+                                        <input class="e-field-inner  require"  asp-for="UserPanel.FirstName" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-6 ">
                                     <div class="e-form-field mb-26">
                                         <label>نام خانوادگی  </label>
-                                        <input class="e-field-inner require" type="text" readonly asp-for="UserPanel.LastName">
+                                        <input class="e-field-inner require" type="text"  asp-for="UserPanel.LastName">
                                     </div>
                                 </div>
                                 <div class="col-md-6 ">
                                     <div class="e-form-field mb-26">
                                         <label>ایمیل </label>
-                                        <input class="e-field-inner require" type="email" readonly asp-for="UserPanel.Email">
+                                        <input class="e-field-inner require" type="email"  asp-for="UserPanel.Email">
                                     </div>
                                 </div>
                                 <div class="col-md-6 ">
                                     <div class="e-form-field mb-26">
                                         <label>شماره تلفن</label>
-                                        <input class="e-field-inner require" type="text" readonly asp-for="UserPanel.Mobile">
+                                        <input class="e-field-inner require" type="text"  asp-for="UserPanel.Mobile">
                                     </div>
                                 </div>
                                 <div class="col-md-3">

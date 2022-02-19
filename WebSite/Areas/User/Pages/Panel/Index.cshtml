@@ -84,14 +84,18 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                    <button type="button" class="e-btn" asp-page="./Edit" asp-route-userId="@Model.UserPanel.UserId" >ویرایش</button>
-                                <div class="">
-                                </div>
+                                <a asp-page="./Edit" asp-route-userId="@Model.UserPanel.UserId">
+                                    <button type="button" class="e-btn">
+                                        ویرایش
+                                    </button>
+                                </a>
                             </div>
                             <div class="col-md-3">
-                                <div class="">
-                                    <button type="button" class="e-btn">تغییر کلمه عبور</button>
-                                </div>
+                                <a asp-page="./ChangePassword" asp-route-userId="@Model.UserPanel.UserId">
+                                    <div class="">
+                                        <button type="button" class="e-btn">تغییر کلمه عبور</button>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

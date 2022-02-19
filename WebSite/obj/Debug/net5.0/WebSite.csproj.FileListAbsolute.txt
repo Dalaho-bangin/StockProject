@@ -204,3 +204,6 @@ C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Shar
 C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\_ViewImports.cshtml.g.cs
 C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\_ViewStart.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\BasePage.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Panel\Edit.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Panel\ChangePassword.cshtml.g.cs

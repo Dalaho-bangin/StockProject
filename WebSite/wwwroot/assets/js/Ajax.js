@@ -25,3 +25,4 @@ function ShowMessage(title, text, theme) {
         message: decodeURI(text)
     });
 }
+

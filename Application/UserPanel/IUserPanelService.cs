@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,12 @@ namespace Application.UserPanel
 
         Task<UserPanelDto> Panel(long userId);
 
+
+        #endregion
+
+        #region Validation Mobile Number
+
+        bool ValidationMobileNumber(string mobile);
 
         #endregion
 
@@ -40,6 +47,21 @@ namespace Application.UserPanel
 
         Task<EditUserPanelResult> Edit(EditUserPanelDto dto);
 
+
+        #endregion
+
+        #region Find User For Change Password
+
+        Task<ChangePasswordDto> FindUserForChangePassword(long userId);
+
+
+
+        #endregion
+
+        #region Change Password
+
+        Task<ChangePassworResult> ChangePassword(ChangePasswordDto dto);
+       
 
         #endregion
 
@@ -81,6 +103,20 @@ namespace Application.UserPanel
 
         #endregion
 
+        #region Validation Mobile Number
+
+        public bool ValidationMobileNumber(string mobile)
+        {
+            var Mobile = _context.Users.AsQueryable().FirstOrDefault(x => x.Mobile == mobile);
+
+            if (Mobile != null)
+                return true;
+
+            return false;
+        }
+
+        #endregion
+
         #region Find User With Id
 
         public async Task<User> FindUserWithId(long userId)
@@ -113,19 +149,22 @@ namespace Application.UserPanel
             if (date == null)
                 return EditUserPanelResult.NotFound;
 
-            if (dto.Avatar != null)
+            if (ValidationMobileNumber(dto.Mobile) && date.UserId != dto.UserId)
+                return EditUserPanelResult.NotFound;
+
+            if (dto.AvatarFile != null)
             {
-                if(!dto.AvatarFile.IsImage())
+                if (!dto.AvatarFile.IsImage())
                     return EditUserPanelResult.AvatarHasNotImage;
 
                 var imageName = Guid.NewGuid().ToString("N") + Path.GetExtension(dto.AvatarFile.FileName);
-               dto.AvatarFile.AddImageToServer(imageName, PathExtension.UserAvatarOriginServer, 100, 100,
-                    PathExtension.UserAvatarThumbServer, dto.Avatar);
+                dto.AvatarFile.AddImageToServer(imageName, PathExtension.UserAvatarOriginServer, 100, 100,
+                     PathExtension.UserAvatarThumbServer, dto.Avatar);
                 dto.Avatar = imageName;
 
             }
 
-            date.Edit(dto.FirstName, dto.LastName, dto.Email, dto.Mobile, dto.Avatar, 
+            date.Edit(dto.FirstName, dto.LastName, dto.Email, dto.Mobile, dto.Avatar,
                 date.IsEmailActive, date.IsMobileActive);
 
             _context.Users.Update(date);
@@ -134,6 +173,48 @@ namespace Application.UserPanel
             return EditUserPanelResult.EditSuccess;
         }
 
+
+        #endregion
+
+        #region Find User For Change Password
+
+        public async Task<ChangePasswordDto>FindUserForChangePassword(long userId)
+        {
+            var data = await FindUserWithId(userId);
+
+            if (data == null)
+                return null;
+            ChangePasswordDto result = new ChangePasswordDto();
+            result.UserId = data.UserId;
+
+            return result;
+
+        }
+
+
+        #endregion
+
+        #region Change Password
+
+        public async Task<ChangePassworResult>ChangePassword(ChangePasswordDto dto)
+        {
+            var data = await FindUserWithId(dto.UserId);
+
+            if (data == null)
+                return ChangePassworResult.NotFound;
+          
+            var validationPassowrd = _passwordhasher.Check(data.Password, dto.OldPassword);
+
+            if (validationPassowrd.Verified != true)
+                return ChangePassworResult.InvalidPassword;
+
+            dto.NewPassword = _passwordhasher.Hash(dto.NewPassword);
+            data.ChangePassword(dto.NewPassword);
+            _context.Users.Update(data);
+            _context.SaveChanges();
+            return ChangePassworResult.ChangedSuccess;
+
+        }
 
         #endregion
     }
@@ -158,12 +239,17 @@ namespace Application.UserPanel
     {
         public long UserId { get; set; }
 
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string FirstName { get; set; }
 
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string LastName { get; set; }
 
         public string Email { get; set; }
 
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string Mobile { get; set; }
 
         public string Avatar { get; set; }
@@ -177,5 +263,29 @@ namespace Application.UserPanel
         EditSuccess,
         NotFound,
         AvatarHasNotImage
+    }
+
+    public class ChangePasswordDto
+    {
+        public long UserId { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string OldPassword { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string NewPassword { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [Compare("NewPassword", ErrorMessage = "کلمه عبور باهم متابقت ندارد")]
+        public string ReNewPassword { get; set; }
+
+
+    }
+
+    public enum ChangePassworResult
+    {
+        ChangedSuccess,
+        NotFound,
+        InvalidPassword
     }
 }
