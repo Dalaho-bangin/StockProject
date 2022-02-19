@@ -1,6 +1,7 @@
 using Application.Interfaces.Context;
 using Application.Permissions;
 using Application.ProductCategories;
+using Application.UserPanel;
 using Application.Users;
 using Common;
 using GoogleReCaptcha.V3;
@@ -45,6 +46,7 @@ namespace WebSite
             services.AddTransient<IPermissionService, PermissionService>();
             services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
+            services.AddTransient<IUserPanelService, UserPanelService>();
             #endregion
 
 
@@ -104,7 +106,9 @@ namespace WebSite
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+         
 
             app.UseEndpoints(endpoints =>
             {

@@ -196,3 +196,11 @@ C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\Admin\Pages\Pro
 C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\Admin\Pages\ProductCategories\Index.cshtml.g.cs
 C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\Admin\Pages\ProductCategories\Edit.cshtml.g.cs
 C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\Admin\Pages\ProductCategories\Delete.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Panel\Index.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Shared\_FooterReferences.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Shared\_HeaderReferences.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Shared\_MainLayout.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Shared\_SiteMessages.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\_ViewImports.cshtml.g.cs
+C:\StckProject\StockProject\WebSite\obj\Debug\net5.0\Razor\Areas\User\Pages\_ViewStart.cshtml.g.cs

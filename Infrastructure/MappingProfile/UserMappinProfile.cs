@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.UserPanel;
 
 namespace Infrastructure.MappingProfile
 {
@@ -18,6 +19,8 @@ namespace Infrastructure.MappingProfile
             CreateMap<User, EditUserDTo>().ReverseMap();
             CreateMap<User, DeleteUserDTo>().ReverseMap();
             CreateMap<User, ChangePasswordUserDto>().ReverseMap();
+            CreateMap<User, UserPanelDto>().ReverseMap();
+            CreateMap<User, EditUserPanelDto>().ReverseMap();
         }
     }
 }
