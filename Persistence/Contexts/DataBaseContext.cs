@@ -1,16 +1,19 @@
 ﻿using Application.Interfaces.Context;
 using Domain.Attributes;
 using Domain.ProductCategories;
+using Domain.ProductColors;
+using Domain.ProductFeatures;
+using Domain.ProductPictures;
+using Domain.Products;
+using Domain.ProductSelectedProductCategories;
+using Domain.ProductSizes;
 using Domain.Roles;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Persistence.EntityConfigurations;
 using Persistence.Seeds;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistence.Contexts
 {
@@ -22,12 +25,27 @@ namespace Persistence.Contexts
         }
 
 
+        #region Entities
+
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolesUser> RolesUsers { get; set; }
         public DbSet<PermissionsRole> PermissionsRoles { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+
+        #region Products
+
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductColor> ProductColors { get; set; }
+        public DbSet<ProductFeature> productFeatures { get; set; }
+        public DbSet<ProductSize> productSizes { get; set; }
+        public DbSet<ProductPicture> productPictures { get; set; }
+        public DbSet<ProductSelectedProductCategory> productSelectedProductCategories { get; set; }
+
+        #endregion
+
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -42,14 +60,33 @@ namespace Persistence.Contexts
                 }
             }
 
+            #region Query Filter
+
             builder.Entity<User>()
-                .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+               .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
 
             builder.Entity<Role>()
                  .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
 
             builder.Entity<ProductCategory>()
                   .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+
+            builder.Entity<Product>()
+                 .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+
+            builder.Entity<ProductColor>()
+                 .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+
+            builder.Entity<ProductSize>()
+                 .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+
+            builder.Entity<ProductFeature>()
+                 .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+
+            builder.Entity<ProductPicture>()
+                 .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+
+            #endregion
 
             #region Seed Data
 
@@ -63,12 +100,16 @@ namespace Persistence.Contexts
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new PermissionConfiguration());
             builder.ApplyConfiguration(new ProductCategoryConfiguration());
+            builder.ApplyConfiguration(new ProductConfiguration());
+            builder.ApplyConfiguration(new ProductSelectedProductCategoryConfiguration());
 
             #endregion
 
 
         }
 
+
+        #region Save Changes
 
         public override int SaveChanges()
         {
@@ -106,5 +147,7 @@ namespace Persistence.Contexts
             }
             return base.SaveChanges();
         }
+
+        #endregion
     }
 }

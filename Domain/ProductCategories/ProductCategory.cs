@@ -1,4 +1,5 @@
 ﻿using Domain.Attributes;
+using Domain.ProductSelectedProductCategories;
 using System.Collections.Generic;
 
 
@@ -19,7 +20,14 @@ namespace Domain.ProductCategories
 
         public string ParentProductCategoryName { get; set; }
 
-        public  ICollection<ProductCategory> ParentProductCategories { get; set; }
+        #endregion
+
+        #region Relations
+
+        public ICollection<ProductSelectedProductCategory> ProductSelectedProductCategories{ get; set; }
+
+        public ICollection<ProductCategory> ParentProductCategories { get; set; }
+
 
         #endregion
 
