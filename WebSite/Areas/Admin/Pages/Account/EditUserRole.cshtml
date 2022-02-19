@@ -1,0 +1,104 @@
+﻿
+@page "{userId}"
+
+@using Application.Permissions;
+@model WebSite.Areas.Admin.Pages.Account.EditUserRoleModel
+
+
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "ویرایش نقش کاربر";
+
+    IEnumerable<RoleDto> Roles = ViewData["Roles"] as IEnumerable<RoleDto>;
+    IEnumerable<long> selectedRoles = ViewData["SelectedRoles"] as IEnumerable<long>;
+}
+
+@section styles
+{
+    <link href="~/Admin/assets/css/users/account-setting.css" rel="stylesheet" />
+    <link href="~/Admin/plugins/dropify/dropify.min.css" rel="stylesheet" />
+    <link href="~/Admin/assets/css/scrollspyNav.css" rel="stylesheet" />
+    <link href="~/Admin/assets/css/forms/switches.css" rel="stylesheet" />
+}
+
+
+
+<div class="layout-px-spacing">
+    <div class="account-settings-container layout-top-spacing">
+
+        <div class="account-content">
+            <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                        <form id="general-info" class="section general-info" asp-page="./EditUserRole" method="post">
+                            <input type="hidden" value="@ViewData["userId"]" asp-for="AddUserRoles.UserId" />
+
+                            <div class="info">
+                                <h6 class="">ویرایش نقش به کاربر</h6>
+                                <div class="row">
+                                    <div class="col-lg-11 mx-auto">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 mt-md-0 mt-4">
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+
+                                                            @if (Roles != null && Roles.Any())
+                                                            {
+                                                                foreach (var role in Roles)
+                                                                {
+                                                                    <div class="col-lg-3 col-md-3 col-sm-4 col-6">
+
+                                                                        <div class="row">
+                                                                            <div class="col-6 col-md-6">
+                                                                                <p class="mb-4 mr-2">
+                                                                                    <span>   @role.RoleTitle</span>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-6 col-md-6">
+                                                                                <label class="switch s-icons s-outline  s-outline-primary  mb-4 mr-2">
+
+                                                                                    <input value="@role.RoleId" name="AddUserRoles.RolesId" type="checkbox" @(selectedRoles.Any(x=> x==role.RoleId)?"checked":"")>
+                                                                                    <span class="slider round"></span>
+
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+
+
+
+                                                                    </div>
+                                                                }
+                                                            }
+
+
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <button class="btn btn-outline-warning mb-2">ویرایش</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/Admin/plugins/dropify/dropify.min.js"></script>
+    <script src="~/Admin/plugins/blockui/jquery.blockUI.min.js"></script>
+    <script src="~/Admin/assets/js/users/account-settings.js"></script>
+    <script src="~/Admin/assets/js/scrollspyNav.js"></script>
+}

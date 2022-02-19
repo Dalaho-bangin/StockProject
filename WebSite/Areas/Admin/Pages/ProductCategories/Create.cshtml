@@ -1,0 +1,101 @@
+﻿@page
+@model WebSite.Areas.Admin.Pages.ProductCategories.CreateModel
+@{
+
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "افزودن دسته بندی محصولات";
+
+}
+
+@section styles
+{
+    <link href="~/Admin/assets/css/users/account-setting.css" rel="stylesheet" />
+    <link href="~/Admin/plugins/dropify/dropify.min.css" rel="stylesheet" />
+
+    <link href="~/lib/comboTreePlugin/comboTreePlugin.css" rel="stylesheet" />
+}
+
+
+
+<div class="layout-px-spacing">
+    <div class="account-settings-container layout-top-spacing">
+
+        <div class="account-content">
+            <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                        <form id="general-info" class="section general-info" asp-page="./Create" method="post">
+                            <div class="info">
+                                <h6 class="">@ViewData["Title"]</h6>
+                                <div class="row">
+                                    <div class="col-lg-11 mx-auto">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 mt-md-0 mt-4">
+                                                <div>
+                                                    <div class="row">
+
+                                                        <div class="col-12 col-md-12 col-xl-12 col-lg-12">
+                                                            <label>عنوان دسته بندی</label>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control mb-4" placeholder="عنوان دسته بندی " asp-for="ProductCategory.ProductCategoryName"  onchange="makeSlug('ProductCategory_ProductCategoryName', 'ProductCategory_Slug')" />
+                                                                <span class="text-danger" asp-validation-for="ProductCategory.ProductCategoryName"></span>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-12 col-md-12 col-xl-12 col-lg-12">
+                                                            <label>Slug</label>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control mb-4" placeholder=" Slug" asp-for="ProductCategory.Slug" />
+                                                                <span class="text-danger" asp-validation-for="ProductCategory.Slug"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-md-12 col-xl-12 col-lg-12">
+                                                            <label>دسته ی پدر</label>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control mb-4"  asp-for="ProductCategory.ParentProductCategoryName" />
+                                                                <span class="text-danger" asp-validation-for="ProductCategory.ParentProductCategoryName"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <button class="btn btn-primary mt-3" type="submit">ایجاد</button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts
+{
+
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/Admin/plugins/dropify/dropify.min.js"></script>
+    <script src="~/Admin/plugins/blockui/jquery.blockUI.min.js"></script>
+    <script src="~/Admin/assets/js/users/account-settings.js"></script>
+    <script src="~/lib/comboTreePlugin/comboTreePlugin.js"></script>
+
+    <script>
+    jQuery(document).ready(function($) {
+        comboTree2 = $('#ProductCategory_ParentProductCategoryName').comboTree({
+			source : @Html.Raw(Json.Serialize(ViewData["ProductCategories"])),
+			isMultiple: false
+		});
+    });
+    </script>
+}

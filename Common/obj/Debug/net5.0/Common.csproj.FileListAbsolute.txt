@@ -1,0 +1,12 @@
+C:\StckProject\StockProject\Common\obj\Debug\net5.0\Common.csproj.AssemblyReference.cache
+C:\StckProject\StockProject\Common\obj\Debug\net5.0\Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\StckProject\StockProject\Common\obj\Debug\net5.0\Common.AssemblyInfoInputs.cache
+C:\StckProject\StockProject\Common\obj\Debug\net5.0\Common.AssemblyInfo.cs
+C:\StckProject\StockProject\Common\obj\Debug\net5.0\Common.csproj.CoreCompileInputs.cache
+C:\StckProject\StockProject\Common\bin\Debug\net5.0\Common.deps.json
+C:\StckProject\StockProject\Common\bin\Debug\net5.0\Common.dll
+C:\StckProject\StockProject\Common\bin\Debug\net5.0\ref\Common.dll
+C:\StckProject\StockProject\Common\bin\Debug\net5.0\Common.pdb
+C:\StckProject\StockProject\Common\obj\Debug\net5.0\Common.dll
+C:\StckProject\StockProject\Common\obj\Debug\net5.0\ref\Common.dll
+C:\StckProject\StockProject\Common\obj\Debug\net5.0\Common.pdb

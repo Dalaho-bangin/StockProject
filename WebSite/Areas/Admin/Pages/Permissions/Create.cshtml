@@ -1,0 +1,138 @@
+﻿@page
+
+@using Domain.Roles;
+@model WebSite.Areas.Admin.Pages.Permissions.CreateModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "افزودن نقش";
+
+    IEnumerable<Permission> permissions = ViewData["Permission"] as IEnumerable<Permission>;
+
+}
+
+@section styles
+{
+    <link href="~/Admin/assets/css/users/account-setting.css" rel="stylesheet" />
+    <link href="~/Admin/plugins/dropify/dropify.min.css" rel="stylesheet" />
+}
+
+
+
+<div class="layout-px-spacing">
+    <div class="account-settings-container layout-top-spacing">
+
+        <div class="account-content">
+            <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                        <form id="general-info" class="section general-info" asp-page="./Create" method="post" >
+                            <div class="info">
+                                <h6 class="">افزودن نقش</h6>
+                                <div class="row">
+                                    <div class="col-lg-11 mx-auto">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 mt-md-0 mt-4">
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="fullName">عنوان نقش</label>
+                                                            <div class="form-group">
+                                                                <input type="text" asp-for="Role.RoleTitle" class="form-control mb-4" placeholder="نام ">
+                                                                <span asp-validation-for="Role.RoleTitle" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <div class="form-group">
+                                                                <div class="panel panel-primary">
+                                                                    <div class="panel-heading">
+                                                                        سطح دسترسی ها
+                                                                    </div>
+                                                                    <div class="panel-body">
+                                                                        <ul>
+                                                                            @foreach (var permi in permissions.Where(w => w.ParentPermissionId == null))
+                                                                            {
+                                                                                <li>
+                                                                                    @permi.PermissionTitle
+                                                                                    <input type="checkbox" name="SelectedPermission" value="@permi.PermissionId" main_permission_checkbox="@permi.PermissionId" />
+                                                                                    <div id="sub_permission_@permi.PermissionId" style="display:none">
+                                                                                        @if (permissions.Any(p => p.ParentPermissionId == permi.ParentPermissionId))
+                                                                                        {
+                                                                                            <ul>
+                                                                                                @foreach (var sub in permissions.Where(p => p.ParentPermissionId == permi.PermissionId))
+                                                                                                {
+                                                                                                    <li>
+                                                                                                        @sub.PermissionTitle
+                                                                                                        <input type="checkbox" name="SelectedPermission" value="@sub.PermissionId" main_permission_checkbox="@sub.PermissionId" parent-permission-id="@permi.PermissionId" />
+                                                                                                        <div id="sub_permission_@sub.PermissionId" style="display:none">
+                                                                                                            @if (permissions.Any(p => p.ParentPermissionId == sub.ParentPermissionId))
+                                                                                                            {
+                                                                                                                <ul>
+                                                                                                                    @foreach (var sub2 in permissions.Where(w => w.ParentPermissionId == sub.PermissionId))
+                                                                                                                    {
+                                                                                                                        <li>
+                                                                                                                            @sub2.PermissionTitle
+                                                                                                                            <input type="checkbox" name="SelectedPermission" value="@sub2.PermissionId" main_permission_checkbox="@sub2.PermissionId" parent-permission-id="@sub.PermissionId" 2 />
+                                                                                                                        </li>
+                                                                                                                    }
+                                                                                                                </ul>
+                                                                                                            }
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                }
+                                                                                            </ul>
+                                                                                        }
+                                                                                    </div>
+                                                                                </li>
+                                                                            }
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <button class="btn btn-primary mt-3" type="submit">ایجاد</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/Admin/plugins/dropify/dropify.min.js"></script>
+    <script src="~/Admin/plugins/blockui/jquery.blockUI.min.js"></script>
+    <script src="~/Admin/assets/js/users/account-settings.js"></script>
+
+
+    <script>
+        $("[main_permission_checkbox]").on('change',
+            function (e) {
+                var isChecked = $(this).is(':checked');
+                var selectedPermissionId = $(this).attr('main_permission_checkbox');
+                if (isChecked) {
+                    $('#sub_permission_' + selectedPermissionId).slideDown(300);
+                } else {
+                    $('#sub_permission_' + selectedPermissionId).slideUp(300);
+                    $('[parent-permission-id="' + selectedPermissionId + '"]').prop('checked', false);
+                }
+            });
+    </script>
+}

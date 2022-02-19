@@ -1,0 +1,57 @@
+﻿@page "{productCategoryId}"
+@model WebSite.Areas.Admin.Pages.ProductCategories.DeleteModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "حذف دسته بندی محصولات";
+}
+
+@section styles
+{
+    <link href="~/Admin/assets/css/users/account-setting.css" rel="stylesheet" />
+    <link href="~/Admin/plugins/dropify/dropify.min.css" rel="stylesheet" />
+    <link href="~/Admin/assets/css/elements/alert.css" rel="stylesheet" />
+}
+
+
+<div class="layout-px-spacing">
+    <div class="account-settings-container layout-top-spacing">
+
+        <div class="account-content">
+            <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                        <form id="general-info" class="section general-info" asp-page="./Delete" method="post">
+                            <input type="hidden" asp-for="@Model.ProductCategory.ProductCategoryId" />
+                            <input type="hidden" asp-for="@Model.ProductCategory.ProductCategoryName" />
+                            <div class="info">
+                                <h6 class="">@ViewData["Title"] </h6>
+                                <div class="row">
+                                    <div class="col-md-6 col-xl-6 col-xs-6 col-6 col-sm-6 col-lg-6">
+                                        <div class="alert alert-arrow-right alert-icon-right alert-light-danger mb-4" role="alert">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
+                                            <strong>هشدار!</strong>آیا از حذف @Model.ProductCategory.ProductCategoryName هستید؟
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6 col-xs-6 col-6 col-sm-6 col-lg-6">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <button class="btn btn-danger mt-3" type="submit">حذف</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

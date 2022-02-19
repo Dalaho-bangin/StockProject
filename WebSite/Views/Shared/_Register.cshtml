@@ -1,0 +1,82 @@
+﻿
+
+@model Application.Users.RegisterUserDTO
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_CaptchaScripts" />
+}
+
+<div class="e-autho-model modal fade" id="register">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="modal-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="modal-inner-box">
+                                <div class="autho-model-header text-center">
+                                    <a href="javascript:void(0);"><img src="assets/images/index1/big_logo.png" alt="logo" class="img-fluid"></a>
+                                    <p class="autho-model-sttl">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                                    <h2 class="autho-model-ttl">ثبت نام </h2>
+                                </div>
+
+                                <div class="autho-model-filed">
+                                    <form asp-area="" asp-controller="Account" asp-action="Register">
+                                        <partial name="_CaptchaInput" />
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="e-form-field mb-20">
+                                                    <label>نام </label>
+                                                    <input class="e-field-inner" asp-for="FirstName" type="text">
+                                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="e-form-field mb-20">
+                                                    <label>نام خانوادگی </label>
+                                                    <input class="e-field-inner" asp-for="LastName" type="text">
+                                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="e-form-field mb-20">
+                                                    <label>موبایل </label>
+                                                    <input class="e-field-inner" asp-for="Mobile" type="text">
+                                                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="e-form-field mb-20">
+                                                    <label>رمز عبور </label>
+                                                    <input class="e-field-inner" asp-for="Password" type="Password">
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="e-form-field mb-20">
+                                                    <label>تکرار رمز عبور</label>
+                                                    <input class="e-field-inner" asp-for="RePassword" type="Password">
+                                                    <span asp-validation-for="RePassword" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <button type="submit" class="e-btn">ثبت نام</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="autho-close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+    </div>
+</div>
